@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HopeupTech · TikTok Live Flyer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- html2canvas for downloading as PNG -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         /* ── RESET & BASE ── */
         * {
@@ -80,25 +81,14 @@
             gap: 10px;
         }
 
-        .brand .logo-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1.2rem;
-            color: #0b0f19;
-            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.25);
-        }
-
         .brand .company {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             color: #e8edf5;
             letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .brand .company span {
             color: #4facfe;
@@ -113,6 +103,34 @@
             border: 1px solid #2a4a6a;
             letter-spacing: 0.4px;
             margin-left: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-download {
+            background: transparent;
+            border: 1px solid #4facfe;
+            color: #4facfe;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+        .btn-download:hover {
+            background: #4facfe;
+            color: #0b0f19;
+            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.25);
         }
 
         .tiktok-badge {
@@ -163,7 +181,6 @@
             z-index: 2;
         }
 
-        /* left column */
         .flyer-text h1 {
             font-size: 2.6rem;
             font-weight: 800;
@@ -285,7 +302,6 @@
             letter-spacing: 0.3px;
         }
 
-        /* right column — image + overlay */
         .flyer-image {
             position: relative;
             border-radius: 24px;
@@ -332,7 +348,6 @@
             font-weight: 700;
         }
 
-        /* ── FOOTER ── */
         .flyer-footer {
             margin-top: 26px;
             padding-top: 18px;
@@ -377,7 +392,6 @@
             line-height: 1.4;
         }
 
-        /* ── RESPONSIVE ── */
         @media (max-width: 700px) {
             .flyer {
                 padding: 24px 18px 20px;
@@ -401,6 +415,10 @@
             .flyer-header {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+            .header-actions {
+                width: 100%;
+                justify-content: flex-start;
             }
             .flyer-footer {
                 flex-direction: column;
@@ -447,25 +465,33 @@
                 font-size: 0.6rem;
                 padding: 4px 12px 4px 8px;
             }
+            .btn-download {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="flyer">
+    <div class="flyer" id="flyer-card">
 
         <!-- ── HEADER ── -->
         <div class="flyer-header">
             <div class="brand">
-                <div class="logo-icon">H</div>
-                <div>
-                    <div class="company">Hopeup<span>Tech</span></div>
+                <div class="company">
+                    Hopeup<span>Tech</span>
                     <span class="badge"><i class="fas fa-maple-leaf" style="margin-right:4px;"></i>CANADA</span>
                 </div>
             </div>
-            <div class="tiktok-badge">
-                <i class="fab fa-tiktok"></i>
-                <span>Live <span class="live-dot"></span></span>
+            <div class="header-actions">
+                <button class="btn-download" onclick="downloadFlyer()">
+                    <i class="fas fa-download"></i> Download
+                </button>
+                <div class="tiktok-badge">
+                    <i class="fab fa-tiktok"></i>
+                    <span>Live <span class="live-dot"></span></span>
+                </div>
             </div>
         </div>
 
@@ -475,25 +501,25 @@
             <!-- left -->
             <div class="flyer-text">
                 <h1>
-                    Trade Crypto <br />
+                    Learn Crypto <br />
                     <span class="highlight">Live on TikTok</span>
                 </h1>
                 <p class="sub">
-                    <strong>Real trades. Real time. Real edge.</strong><br />
-                    Join our daily live sessions where we break down order flow,
-                    manage leverage, and execute trades — all while you watch and learn.
+                    <strong>Beginner‑friendly. No live trades.</strong><br />
+                    Join our daily sessions where we break down the fundamentals,
+                    teach risk management, and build your trading plan — step by step.
                 </p>
 
                 <div class="feature-list">
-                    <div class="item"><i class="fas fa-check-circle"></i> Live trade execution with commentary</div>
-                    <div class="item"><i class="fas fa-check-circle"></i> Real-time Q&amp;A — ask anything</div>
-                    <div class="item"><i class="fas fa-check-circle"></i> Break down institutional setups</div>
+                    <div class="item"><i class="fas fa-check-circle"></i> Live educational sessions with Q&amp;A</div>
+                    <div class="item"><i class="fas fa-check-circle"></i> Ask anything about crypto basics</div>
+                    <div class="item"><i class="fas fa-check-circle"></i> Learn to build your first trading plan</div>
                     <div class="item"><i class="fas fa-check-circle"></i> Daily market recap &amp; watchlist</div>
                 </div>
 
                 <div class="cta-row">
-                    <a href="#" class="btn-live">
-                        <i class="fab fa-tiktok"></i> Join Live Now
+                    <a href="https://www.tiktok.com/@gshalom71" target="_blank" class="btn-live">
+                        <i class="fab fa-tiktok"></i> Join Live Session
                     </a>
                     <a href="#" class="btn-outline">
                         <i class="fas fa-calendar-alt"></i> Set Reminder
@@ -510,7 +536,7 @@
             <div class="flyer-image">
                 <img
                 src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&h=600&fit=crop&crop=center"
-                alt="Trading live on TikTok"
+                alt="Learning crypto on TikTok"
                 />
                 <div class="overlay">
                     <div class="tag">
@@ -525,13 +551,12 @@
         <!-- ── FOOTER ── -->
         <div class="flyer-footer">
             <div class="schedule">
-                <i class="fas fa-clock"></i> Weekdays 6:00 PM EST · TikTok <strong style="color:#e8edf5;">@hopeuptech</strong>
+                <i class="fas fa-clock"></i> Monday 2:00 PM EST · TikTok <strong style="color:#e8edf5;">@gshalom71</strong>
             </div>
             <div class="social-links">
-                <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
-                <a href="#" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-                <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/@gshalom71" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://t.me/+19729042864" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                <a href="https://wa.me/19729042864" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
             <div class="disclaimer-small">
                 <i class="fas fa-shield-alt" style="color:#4facfe;"></i> Educational content only. Trading involves risk.
@@ -539,6 +564,40 @@
         </div>
 
     </div>
+
+    <script>
+        function downloadFlyer() {
+            const element = document.getElementById('flyer-card');
+            const btn = document.querySelector('.btn-download');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Capturing...';
+            btn.disabled = true;
+
+            html2canvas(element, {
+                scale: 2.5,
+                useCORS: true,
+                backgroundColor: '#0b0f19',
+                logging: false,
+                allowTaint: false,
+                width: element.scrollWidth,
+                height: element.scrollHeight,
+                windowWidth: element.scrollWidth,
+                windowHeight: element.scrollHeight
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'HopeupTech_Flyer.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }).catch(err => {
+                console.warn('Download error:', err);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                alert('Could not generate flyer. Please try again or use screenshot.');
+            });
+        }
+    </script>
 
 </body>
 </html>
